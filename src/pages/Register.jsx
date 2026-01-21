@@ -98,8 +98,8 @@ const Register = () => {
                                 value={formData.role}
                             >
                                 <option value="EMPLOYEE">Employee</option>
-                                <option value="DEPT_HEAD">Dept. Head</option>
-                                <option value="ADMIN">Admin</option>
+                                {/* <option value="DEPT_HEAD">Dept. Head</option> */}
+                                {/* <option value="ADMIN">Admin</option> */}
                             </select>
                         </div>
                         <div>
