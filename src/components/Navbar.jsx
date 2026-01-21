@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
 import { LogOut, FileText, LayoutDashboard, User } from 'lucide-react';
+import resym from "../assets/images/resym.png"
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
@@ -15,10 +16,10 @@ const Navbar = () => {
     return (
         <nav className="bg-white border-b border-gray-200 px-6 py-3 flex justify-between items-center sticky top-0 z-50">
             <Link to="/" className="flex items-center gap-2">
-                <div className="bg-blue-600 p-1.5 rounded-lg">
-                    <FileText className="text-white" size={20} />
+                <div className="rounded-lg">
+                    <img src={resym} alt="Resym Logo" className="text-white w-12 h-12" />
                 </div>
-                <span className="text-xl font-bold text-gray-800 tracking-tight">ALTA<span className="text-blue-600">Report</span></span>
+                <span className="text-xl font-bold text-[#98d000] tracking-tight">ALTA<span className="text-[#0000b9]">Report</span></span>
             </Link>
 
             <div className="flex items-center gap-6">
@@ -40,8 +41,8 @@ const Navbar = () => {
                     </>
                 ) : (
                     <div className="flex gap-4">
-                        <Link to="/login" className="text-gray-600 font-medium hover:text-blue-600">Login</Link>
-                        <Link to="/register" className="bg-blue-600 text-white px-4 py-1.5 rounded-md hover:bg-blue-700 transition font-medium">
+                        <Link to="/login" className="text-gray-600 font-medium hover:text-[#0000b9]">Login</Link>
+                        <Link to="/register" className="bg-[#0000b9] text-white px-4 py-1.5 rounded-md hover:bg-[#98d000] transition font-medium">
                             Get Started
                         </Link>
                     </div>
