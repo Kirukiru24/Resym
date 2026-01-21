@@ -31,7 +31,7 @@ const Landing = () => {
                             <Zap size={32} />
                         </div>
                         <h3 className="text-xl font-bold mb-3">Quick Submission</h3>
-                        <p className="text-gray-600">Dynamic task tables allow you to log Odoo modules and HR updates in seconds.</p>
+                        <p className="text-gray-600">Submit your weekly progress in just a few clicks.</p>
                     </div>
                     <div className="text-center">
                         <div className="bg-blue-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-blue-600">
