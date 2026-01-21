@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios'; // Switched to axios for consistency
+import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 
 const Register = () => {
@@ -8,13 +8,12 @@ const Register = () => {
         email: '',
         password: '',
         role: 'EMPLOYEE',
-        division: ''
+        division: '',
+        position: '' // 1. Added position to state
     });
     
     const [error, setError] = useState('');
     const navigate = useNavigate();
-
-    // Pull the Base URL from Vite environment variables
     const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
     const handleChange = (e) => {
@@ -25,14 +24,11 @@ const Register = () => {
         e.preventDefault();
         setError('');
         try {
-            // Using the dynamic baseUrl for the registration request
             await axios.post(`${baseUrl}/auth/register`, formData);
-            
             alert("Registration successful! Please login.");
             navigate('/login');
         } catch (err) {
-            // Error handling consistent with Login
-            setError(err.response?.data?.message || "Registration failed. Check your inputs.");
+            setError(err.response?.data?.error || err.response?.data?.message || "Registration failed.");
         }
     };
 
@@ -51,6 +47,7 @@ const Register = () => {
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Full Name */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Full Name</label>
                         <input 
@@ -60,6 +57,7 @@ const Register = () => {
                         />
                     </div>
 
+                    {/* Email */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Email Address</label>
                         <input 
@@ -69,15 +67,27 @@ const Register = () => {
                         />
                     </div>
 
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Division / Department</label>
-                        <input 
-                            name="division" type="text" placeholder="ICT Solution Center"
-                            className="w-full mt-1 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-                            onChange={handleChange} required 
-                        />
+                    {/* Division and Position - Row Layout */}
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Division</label>
+                            <input 
+                                name="division" type="text" placeholder="ICT Center"
+                                className="w-full mt-1 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                                onChange={handleChange} required 
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Job Position</label>
+                            <input 
+                                name="position" type="text" placeholder="Software Engineer"
+                                className="w-full mt-1 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                                onChange={handleChange} required 
+                            />
+                        </div>
                     </div>
 
+                    {/* Role and Password - Row Layout */}
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-gray-700">System Role</label>
@@ -89,6 +99,7 @@ const Register = () => {
                             >
                                 <option value="EMPLOYEE">Employee</option>
                                 <option value="DEPT_HEAD">Dept. Head</option>
+                                <option value="ADMIN">Admin</option>
                             </select>
                         </div>
                         <div>
