@@ -12,6 +12,14 @@ import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import Landing from './pages/Landing.jsx'
 import SubmitReport from './pages/SubmitReport.jsx';
+import { disableReactDevTools } from '@fvilers/disable-react-devtools';
+
+
+if(process.env.NODE_ENV === 'production') {
+  disableReactDevTools();
+}
+
+
 // import Dashboard from './pages/Dashboard.jsx';
 // import AdminDashboard from './pages/AdminDashboard.jsx';
 
