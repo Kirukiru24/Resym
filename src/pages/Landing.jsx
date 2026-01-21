@@ -1,7 +1,16 @@
 import { Link } from 'react-router-dom';
-import { CheckCircle, BarChart3, ShieldCheck, Zap } from 'lucide-react';
+import { BarChart3, ShieldCheck, Zap } from 'lucide-react';
 
 const Landing = () => {
+    // 1. Check if the user is authenticated
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+    // 2. Determine the dashboard path based on role
+    let dashboardPath = '/dashboard';
+    if (user.role === 'ADMIN') dashboardPath = '/admin-dashboard';
+    else if (user.role === 'DEPT_HEAD') dashboardPath = '/admin-dashboard';
+
     return (
         <div className="bg-white">
             {/* Hero Section */}
@@ -13,12 +22,21 @@ const Landing = () => {
                 <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
                     A simplified and easy way for ALTA employees to submit weekly progress reports and for managers to track team performance.
                 </p>
+                
                 <div className="flex justify-center gap-4">
-                    <Link to="/register" className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-bold hover:bg-blue-700 transition shadow-lg">
-                        Get Started
+                    {/* 3. Conditional Links: If token exists, go to dashboard. Otherwise, go to auth pages */}
+                    <Link 
+                        to={token ? dashboardPath : "/register"} 
+                        className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-bold hover:bg-blue-700 transition shadow-lg"
+                    >
+                        {token ? "Go to Dashboard" : "Get Started"}
                     </Link>
-                    <Link to="/login" className="bg-gray-100 text-gray-800 px-8 py-3 rounded-lg text-lg font-bold hover:bg-gray-200 transition">
-                        Sign In
+                    
+                    <Link 
+                        to={token ? dashboardPath : "/login"} 
+                        className="bg-gray-100 text-gray-800 px-8 py-3 rounded-lg text-lg font-bold hover:bg-gray-200 transition"
+                    >
+                        {token ? "View Reports" : "Sign In"}
                     </Link>
                 </div>
             </header>
