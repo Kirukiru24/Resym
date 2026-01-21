@@ -23,16 +23,23 @@ const Register = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError('');
-        try {
-            await axios.post(`${baseUrl}/auth/register`, formData);
-            alert("Registration successful! Please login.");
-            navigate('/login');
-        } catch (err) {
-            setError(err.response?.data?.error || err.response?.data?.message || "Registration failed.");
-        }
-    };
+    e.preventDefault();
+    setError('');
+
+    // Frontend validation
+    if (!formData.email.endsWith('@altacomputec.com')) {
+        setError("Please use your official @altacomputec.com email.");
+        return; // Stop the request here
+    }
+
+    try {
+        await axios.post(`${baseUrl}/auth/register`, formData);
+        alert("Registration successful! Please login.");
+        navigate('/login');
+    } catch (err) {
+        setError(err.response?.data?.error || err.response?.data?.message || "Registration failed.");
+    }
+};
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
