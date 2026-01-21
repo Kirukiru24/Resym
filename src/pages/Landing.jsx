@@ -11,8 +11,7 @@ const Landing = () => {
                     <span className="text-blue-600">Simplified for ALTA.</span>
                 </h1>
                 <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-                    A centralized platform for ICT professionals to document achievements, 
-                    track challenges, and plan the future of Odoo and HR Analytics.
+                    A simplified and easy way for ALTA employees to submit weekly progress reports and for managers to track team performance.
                 </p>
                 <div className="flex justify-center gap-4">
                     <Link to="/register" className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-bold hover:bg-blue-700 transition shadow-lg">

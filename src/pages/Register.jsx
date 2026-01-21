@@ -15,7 +15,7 @@ const Register = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const baseUrl = import.meta.env.VITE_API_BASE_URL;
-
+     console.log("API Base URL:", baseUrl);
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
