@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import api from '../api/axios';
+import axios from 'axios'; // Switched to axios for consistency
 import { useNavigate, Link } from 'react-router-dom';
 
 const Register = () => {
@@ -7,11 +7,15 @@ const Register = () => {
         full_name: '',
         email: '',
         password: '',
-        role: 'EMPLOYEE', // Default value matching your role_enum
+        role: 'EMPLOYEE',
         division: ''
     });
+    
     const [error, setError] = useState('');
     const navigate = useNavigate();
+
+    // Pull the Base URL from Vite environment variables
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,10 +25,13 @@ const Register = () => {
         e.preventDefault();
         setError('');
         try {
-            await api.post('/auth/register', formData);
+            // Using the dynamic baseUrl for the registration request
+            await axios.post(`${baseUrl}/auth/register`, formData);
+            
             alert("Registration successful! Please login.");
             navigate('/login');
         } catch (err) {
+            // Error handling consistent with Login
             setError(err.response?.data?.message || "Registration failed. Check your inputs.");
         }
     };
@@ -37,7 +44,11 @@ const Register = () => {
                     <p className="text-gray-500 mt-2">ALTA Reporting System</p>
                 </div>
 
-                {error && <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">{error}</div>}
+                {error && (
+                    <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm text-center">
+                        {error}
+                    </div>
+                )}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
@@ -74,6 +85,7 @@ const Register = () => {
                                 name="role" 
                                 className="w-full mt-1 p-2.5 border border-gray-300 rounded-lg bg-white outline-none"
                                 onChange={handleChange}
+                                value={formData.role}
                             >
                                 <option value="EMPLOYEE">Employee</option>
                                 <option value="DEPT_HEAD">Dept. Head</option>
