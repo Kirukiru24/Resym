@@ -1,7 +1,9 @@
 import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/authContext';
-import { AlertTriangle, CheckCircle, Plus } from 'lucide-react';
+import { AlertTriangle, CheckCircle, Plus, Bell } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
+
 
 const EmployeeDashboard = () => {
     const { user } = useContext(AuthContext);
@@ -43,20 +45,33 @@ const EmployeeDashboard = () => {
 
     return (
         <div className="p-6 max-w-6xl mx-auto min-h-screen bg-gray-50">
-            <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-                <div>
-                    <h1 className="text-3xl font-extrabold text-gray-900">Dashboard</h1>
-                    <p className="text-gray-500 mt-1 font-medium">
-                        Welcome, <span className="text-blue-600">{user?.full_name}</span> | {user?.division} Division
-                    </p>
-                </div>
-                <Link 
-                    to="/submit-report" 
-                    className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-lg font-bold hover:bg-blue-700 transition-all shadow-md active:scale-95"
-                >
-                    <Plus size={20} /> New Report
-                </Link>
-            </header>
+          <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+    <div>
+        <h1 className="text-3xl font-extrabold text-gray-900">Dashboard</h1>
+        <p className="text-gray-500 mt-1 font-medium">
+            Welcome, <span className="text-blue-600">{user?.full_name}</span> | {user?.division} Division
+        </p>
+    </div>
+
+    <div className="flex items-center gap-4">
+        {/* THE NOTIFICATION BELL */}
+        <div className="relative p-2 bg-white rounded-full border border-gray-200 shadow-sm cursor-pointer hover:bg-gray-50 transition-colors">
+            <Bell size={22} className="text-gray-600" />
+            {notifications.length > 0 && (
+                <span className="absolute top-0 right-0 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white ring-2 ring-white">
+                    {notifications.length}
+                </span>
+            )}
+        </div>
+
+        <Link 
+            to="/submit-report" 
+            className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-lg font-bold hover:bg-blue-700 transition-all shadow-md active:scale-95"
+        >
+            <Plus size={20} /> New Report
+        </Link>
+    </div>
+</header>
 
             {/* Notifications / Warnings Section */}
             {notifications.length > 0 && (
