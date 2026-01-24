@@ -15,7 +15,7 @@ const SubmitReport = () => {
         challenges: '',
         achievements: '',
         future_plans: '',
-        tasks: [{ title: '', status: 'In Progress', time_spent: '', notes: '' }]
+        tasks: [{ title: '', status: 'IN_PROGRESS', time_spent: '', notes: '' }]
     });
 
     const handleMainChange = (e) => {
